@@ -11,16 +11,26 @@
 
           <div id="baip-row" class="row placeholders">
             <div class="col-xs-6 col-sm-3 col-md-6 panel">
-              <input type="file"
-                     class="filestyle"
-                     data-buttonName="btn-primary"
-                     data-buttonBefore="true"
-                     data-buttonText="Find file">
+              <form action="/munger/upload_file"
+                    method="post"
+                    enctype="multipart/form-data">
+                <input name="file"
+                       type="file"
+                       class="filestyle"
+                       data-buttonBefore="true"
+                       data-buttonText="Find file">
+                <br /> <br />
+                <div style="float: left">
+                    <input type="submit"
+                           class="btn btn-default"
+                           value="Upload">
+                </div>
+              </form>
             </div>
             <div class="col-xs-3 col-sm-2 panel">
               <img src="/static/images/arrow_right.png"
                    alt="Arrow right"
-                   style="width:75px;height:75px">
+                   style="width:50px;height:50px">
             </div>
             <div class="col-xs-6 col-sm-3 placeholder panel">
               <img data-src="holder.js/100x100/text:Configuration/vine"
