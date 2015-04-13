@@ -1,5 +1,23 @@
-        {% extends "layout.html" %}
-        {% set title = 'Upload files' %}
+{% extends "layout.html" %}
+{% set title = 'Upload files' %}
+    {% block custom_head_js %}
+    <script type='text/javascript'>
+    //<![CDATA[
+        $(window).load(function(){
+            $(document).ready(function(){
+                $('input:file').change(function(){
+                    if ($("#file_to_upload").val()){
+                        $('input:submit').removeAttr('disabled');
+                    }
+                    else {
+                        $('input:submit').attr('disabled',true);
+                    }
+                });
+            });
+        });
+    //]]>
+    </script>
+    {% endblock custom_head_js %}
         {% block content %}
         <div class="col-sm-9
                     col-sm-offset-3
@@ -15,15 +33,18 @@
                     method="post"
                     enctype="multipart/form-data">
                 <input name="file"
+                       id="file_to_upload""
                        type="file"
                        class="filestyle"
                        data-buttonBefore="true"
                        data-buttonText="Find file">
-                <br /> <br />
+                <br /><br />
                 <div style="float: left">
                     <input type="submit"
+                           id="upload"
                            class="btn btn-default"
-                           value="Upload">
+                           value="Upload"
+                           disabled="disabled">
                 </div>
               </form>
             </div>

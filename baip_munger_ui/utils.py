@@ -6,7 +6,7 @@ __all__ = 'allowed_file'
 
 
 def allowed_file(filename, extensions):
-    """Check if *filename* has an extension that is acceptable for upload
+    """Check if *filename* has an extension that is acceptable for upload.
 
     **Args:**
         *filename*: the textual representation of the file to upload
