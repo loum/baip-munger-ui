@@ -19,43 +19,56 @@
           {% block steps %}
           <h3 class="page-header">Dashboard</h3>
 
-          <div class="row placeholders" style="background-color:#f4f4f4">
-            <div class="col-xs-6 col-sm-3 product">
+          <div class="row placeholders"
+               style="background-color:#f4f4f4;
+                      border-radius:5px;
+                      padding-top:20px;
+                      padding-bottom:20px">
+            <div class="col-md-2 product">
               <a href="/munger/upload">
                 <img src="/static/images/document-arrow-up-icon.png"
-                     height"80"
-                     width="80"
+                     style="width:80px;height:80px"
                      class="img-responsive"
                      alt="Upload files">
               </a>
-              <h4>Step 1</h4>
               <span class="text-muted">Upload files</span>
             </div>
-            <div class="col-xs-6 col-sm-3 product">
+            <div class="col-md-1 product">
+              <img src="/static/images/arrow-right.png"
+                   alt="Arrow right"
+                   style="width:50px;height:50px">
+            </div>
+            <div class="col-md-2 product">
+              {% block configuration_step %}
               <img src="/static/images/settings-file-icon.png"
-                   height"80"
-                   width="80"
+                   style="width:80px;height:80px"
                    class="img-responsive"
                    alt="Configuration">
-              <h4>Step 2</h4>
               <span class="text-muted">Configuration</span>
+              {% endblock configuration_step %}
             </div>
-            <div class="col-xs-6 col-sm-3 product">
+            <div class="col-md-1">
+              <img src="/static/images/arrow-right.png"
+                   alt="Arrow right"
+                   style="width:50px;height:50px">
+            </div>
+            <div class="col-md-2 product">
               <img src="/static/images/munger.png"
-                   height"80"
-                   width="80"
+                   style="width:80px;height:80px"
                    class="img-responsive"
                    alt="Munge">
-              <h4>Step 3</h4>
               <span class="text-muted">Munge</span>
             </div>
-            <div class="col-xs-6 col-sm-3 product">
+            <div class="col-md-1">
+              <img src="/static/images/arrow-right.png"
+                   alt="Arrow right"
+                   style="width:50px;height:50px">
+            </div>
+            <div class="col-md-2 product">
               <img src="/static/images/document-arrow-down-icon.png"
-                   height"80"
-                   width="80"
+                   style="width:80px;height:80px"
                    class="img-responsive"
                    alt="Download files">
-              <h4>Step 4</h4>
               <span class="text-muted">Download files</span>
             </div>
           </div>

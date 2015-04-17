@@ -25,10 +25,14 @@
                     col-md-offset-2
                     main">
           {% block steps %}
-          <h2 class="page-header">Upload files</h2>
+          <h3 class="page-header">Upload Files</h3>
 
-          <div id="baip-row" class="row placeholders">
-            <div class="col-xs-6 col-sm-3 col-md-6 panel">
+          <div id="baip-row" class="row placeholders"
+               style="background-color:#f4f4f4;
+                      border-radius:5px;
+                      padding-top:20px;
+                      padding-bottom:20px">
+            <div class="col-md-6 baip-panel">
               <form action="/munger/upload_file"
                     method="post"
                     enctype="multipart/form-data">
@@ -38,7 +42,7 @@
                        class="filestyle"
                        data-buttonBefore="true"
                        data-buttonText="Find file">
-                <br /><br />
+                <br />
                 <div style="float: left">
                     <input type="submit"
                            id="upload"
@@ -48,19 +52,18 @@
                 </div>
               </form>
             </div>
-            <div class="col-xs-3 col-sm-2 panel">
-              <img src="/static/images/arrow_right.png"
+            <div class="col-xs-3 col-sm-2 col-md-1 baip-panel">
+              <img src="/static/images/arrow-right.png"
                    alt="Arrow right"
                    style="width:50px;height:50px">
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder panel">
-              <img data-src="holder.js/100x100/text:Configuration/vine"
-                   class="img-responsive"
-                   alt="Configuration">
-              <h4>Step 2</h4>
-              <span class="text-muted">Configuration</span>
+            <div class="col-xs-6 col-sm-3 col-md-5 product">
+              {% block configuration_step %}
+              {{ super() }}
+              {% endblock configuration_step %}
             </div>
           </div>
+
           {% endblock steps %}
           {% block pending_munge %}
           {{ super() }}

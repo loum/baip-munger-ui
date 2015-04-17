@@ -4,7 +4,7 @@
     display: table;
 }
 
-#baip-row .panel {
+#baip-row .baip-panel {
     float: none;
     display: table-cell;
     vertical-align: middle;
