@@ -9,3 +9,9 @@
     display: table-cell;
     vertical-align: middle;
 }
+
+/* Center an image
+ */
+.product .img-responsive {
+    margin: 0 auto;
+}

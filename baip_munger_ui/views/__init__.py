@@ -18,19 +18,25 @@ def health():
 
 
 @baip_munger_ui.app.route('/munger/dashboard')
-def dashboard():
+@baip_munger_ui.app.route('/munger/dashboard/<path:path>')
+def dashboard(path='.'):
     """Munger dashboard.
 
     """
-    return flask.render_template('dashboard/layout.html')
+    return baip_munger_ui.staging_index.render_autoindex(path=path,
+                                                         template='dashboard/layout.html',
+                                                         endpoint='.dashboard')
 
 
 @baip_munger_ui.app.route('/munger/upload')
-def upload():
+@baip_munger_ui.app.route('/autoindex/<path:path>')
+def upload(path='.'):
     """Munger upload.
 
     """
-    return flask.render_template('dashboard/upload.html')
+    return baip_munger_ui.staging_index.render_autoindex(path=path,
+                                                         template='dashboard/upload.html',
+                                                         endpoint='.upload')
 
 
 @baip_munger_ui.app.route('/munger/upload_file', methods=['GET', 'POST'])
