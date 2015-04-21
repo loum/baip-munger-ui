@@ -14,7 +14,8 @@ app.config.from_object('config')
 
 # Load the Munger config.
 try:
-    conf = baip_munger.XpathGen()
+    conf_file = app.config['MUNGER_CONF_FILE']
+    conf = baip_munger.XpathGen(conf_file=conf_file)
     app.config['MUNGER_CONF'] = conf.parse_configuration()
 except baip_munger.exception.MungerConfigError as e:
     log.error(str(e))

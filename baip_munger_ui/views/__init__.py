@@ -49,9 +49,14 @@ def munge(path='.'):
     """Munger munge.
 
     """
-    kwargs = {'path': path,
-              'template': 'dashboard/munge.html',
-              'endpoint': '.munge'}
+    kwargs = {
+        'path': path,
+        'template': 'dashboard/munge.html',
+        'template_context': {
+            'enabled': baip_munger_ui.app.config['MUNGER_CONF'] is not None,
+        },
+        'endpoint': '.munge',
+    }
 
     return baip_munger_ui.staging_index.render_autoindex(**kwargs)
 

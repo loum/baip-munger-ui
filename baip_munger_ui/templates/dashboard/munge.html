@@ -41,7 +41,7 @@
                            id="munge"
                            class="btn btn-default"
                            value="Start Munge"
-                           disabled="disabled">
+                           {% if not enabled %}disabled{% endif %}>
                 </div>
               </form>
             </div>
