@@ -23,30 +23,56 @@ def dashboard(path='.'):
     """Munger dashboard.
 
     """
-    return baip_munger_ui.staging_index.render_autoindex(path=path,
-                                                         template='dashboard/layout.html',
-                                                         endpoint='.dashboard')
+    kwargs = {'path': path,
+              'template': 'dashboard/layout.html',
+              'endpoint': '.dashboard'}
+
+    return baip_munger_ui.staging_index.render_autoindex(**kwargs)
 
 
 @baip_munger_ui.app.route('/munger/upload')
-@baip_munger_ui.app.route('/autoindex/<path:path>')
+@baip_munger_ui.app.route('/munger/upload/<path:path>')
 def upload(path='.'):
     """Munger upload.
 
     """
-    return baip_munger_ui.staging_index.render_autoindex(path=path,
-                                                         template='dashboard/upload.html',
-                                                         endpoint='.upload')
+    kwargs = {'path': path,
+              'template': 'dashboard/upload.html',
+              'endpoint': '.upload'}
+
+    return baip_munger_ui.staging_index.render_autoindex(**kwargs)
+
+
+@baip_munger_ui.app.route('/munger/munge')
+@baip_munger_ui.app.route('/munger/munge/<path:path>')
+def munge(path='.'):
+    """Munger munge.
+
+    """
+    kwargs = {'path': path,
+              'template': 'dashboard/munge.html',
+              'endpoint': '.munge'}
+
+    return baip_munger_ui.staging_index.render_autoindex(**kwargs)
 
 
 @baip_munger_ui.app.route('/munger/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if flask.request.method == 'POST':
-        file = flask.request.files['file']
-        extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
-        if file and allowed_file(file.filename, extensions):
-            filename = werkzeug.secure_filename(file.filename)
-            file.save(os.path.join(baip_munger_ui.app.config['UPLOAD_DIR'],
-                                   filename))
+        file_storage = flask.request.files['file']
+        source_file = None
 
-        return flask.redirect(flask.url_for('upload'))
+        if file_storage:
+            source_file = file_storage.filename
+            log_msg = 'File "%s" ' % source_file
+            log.info('%s has been selected for upload' % log_msg)
+
+            extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
+            if allowed_file(source_file, extensions):
+                filename = werkzeug.secure_filename(source_file)
+                target = os.path.join(baip_munger_ui.app.config['UPLOAD_DIR'],
+                                      filename)
+                file_storage.save(target)
+                log.info('%s uploaded to "%s"' % (log_msg, target))
+
+    return flask.redirect(flask.url_for('upload'))

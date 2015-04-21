@@ -30,8 +30,8 @@
                      style="width:80px;height:80px"
                      class="img-responsive"
                      alt="Upload files">
+                <span class="text-muted">Upload files</span>
               </a>
-              <span class="text-muted">Upload files</span>
             </div>
             <div class="col-md-1 product">
               <img src="/static/images/arrow-right.png"
@@ -53,11 +53,15 @@
                    style="width:50px;height:50px">
             </div>
             <div class="col-md-2 product">
-              <img src="/static/images/munger.png"
-                   style="width:80px;height:80px"
-                   class="img-responsive"
-                   alt="Munge">
-              <span class="text-muted">Munge</span>
+              <a href="/munger/munge">
+                {% block munge_step %}
+                <img src="/static/images/munger.png"
+                     style="width:80px;height:80px"
+                     class="img-responsive"
+                     alt="Munge">
+                <span class="text-muted">Munge</span>
+                {% endblock munge_step %}
+              </a>
             </div>
             <div class="col-md-1">
               <img src="/static/images/arrow-right.png"
@@ -65,11 +69,13 @@
                    style="width:50px;height:50px">
             </div>
             <div class="col-md-2 product">
+              {% block download_step %}
               <img src="/static/images/document-arrow-down-icon.png"
                    style="width:80px;height:80px"
                    class="img-responsive"
                    alt="Download files">
               <span class="text-muted">Download files</span>
+              {% endblock download_step %}
             </div>
           </div>
           {% endblock steps %}

@@ -1,0 +1,65 @@
+{% extends "dashboard/layout.html" %}
+{% set title = 'Munge' %}
+    {% block custom_head_js %}
+    <script type='text/javascript'>
+    //<![CDATA[
+        $(window).load(function(){
+            $(document).ready(function(){
+                $('input:file').change(function(){
+                    if ($("#file_to_upload").val()){
+                        $('input:submit').removeAttr('disabled');
+                    }
+                    else {
+                        $('input:submit').attr('disabled',true);
+                    }
+                });
+            });
+        });
+    //]]>
+    </script>
+    {% endblock custom_head_js %}
+        {% block content %}
+        <div class="col-sm-9
+                    col-sm-offset-3
+                    col-md-10
+                    col-md-offset-2
+                    main">
+          {% block steps %}
+          <h3 class="page-header">Munge</h3>
+
+          <div id="baip-row" class="row placeholders"
+               style="background-color:#f4f4f4;
+                      border-radius:5px;
+                      padding-top:20px;
+                      padding-bottom:20px">
+            <div class="col-md-3 baip-panel">
+              <form action="/munger/upload_file"
+                    method="post"
+                    enctype="multipart/form-data">
+                <div style="float: left">
+                    <input type="submit"
+                           id="munge"
+                           class="btn btn-default"
+                           value="Start Munge"
+                           disabled="disabled">
+                </div>
+              </form>
+            </div>
+            <div class="col-md-1 baip-panel">
+              <img src="/static/images/arrow-right.png"
+                   alt="Arrow right"
+                   style="width:50px;height:50px">
+            </div>
+            <div class="col-md-3 product">
+              {% block download_step %}
+              {{ super() }}
+              {% endblock download_step %}
+            </div>
+          </div>
+          {% endblock steps %}
+
+          {% block pending_munge %}
+          {{ super() }}
+          {% endblock pending_munge %}
+        </div>
+        {% endblock content %}
