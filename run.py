@@ -4,6 +4,8 @@
 import sys
 sys.path.insert(1, '/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg')
 
+sys.path.append('../baip-munger')
+
 import baip_munger_ui
 
 
