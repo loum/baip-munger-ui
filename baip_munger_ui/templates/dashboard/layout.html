@@ -4,6 +4,7 @@
                                            with context -%}
 {% extends "layout.html" %}
 {% set title = '%s' % title if title else 'Dashboard' %}
+{% set active_page = '%s' % active_page if active_page else 'dashboard' %}
     {% block custom_head_link -%}
     <link rel="stylesheet"
           type="text/css"
