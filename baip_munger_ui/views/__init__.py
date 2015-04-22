@@ -5,8 +5,10 @@ import werkzeug
 import os
 
 import baip_munger_ui
+import baip_munger
 from baip_munger_ui.utils import allowed_file
 from logga.log import log
+from filer.files import get_directory_files_list
 
 
 @baip_munger_ui.app.route('/munger/health')
@@ -53,7 +55,7 @@ def munge(path='.'):
         'path': path,
         'template': 'dashboard/munge.html',
         'template_context': {
-            'enabled': baip_munger_ui.app.config['MUNGER_CONF'] is not None,
+            'enabled': baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None,
         },
         'endpoint': '.munge',
     }
@@ -81,3 +83,23 @@ def upload_file():
                 log.info('%s uploaded to "%s"' % (log_msg, target))
 
     return flask.redirect(flask.url_for('upload'))
+
+
+@baip_munger_ui.app.route('/munger/munge_files', methods=['POST'])
+def munge_files():
+    """Munge files.
+
+    """
+    in_dir = baip_munger_ui.app.config['STAGING_DIR']
+    log.debug('Munging files: %s' % get_directory_files_list(in_dir))
+
+    for html_file in get_directory_files_list(in_dir):
+        target_file = os.path.join(baip_munger_ui.app.config['READY_DIR'],
+                                   os.path.basename(html_file))
+
+        munger = baip_munger.Munger()
+        munger.munge(baip_munger_ui.app.config['MUNGER_ACTIONS'],
+                     html_file,
+                     target_file)
+
+    return flask.redirect(flask.url_for('munge'))

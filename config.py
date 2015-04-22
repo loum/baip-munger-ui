@@ -8,8 +8,11 @@ ALLOWED_EXTENSIONS = set(['html', 'htm'])
 # STAGING_DIR = '/data/share/baip-munger/staging'
 STAGING_DIR = '/var/tmp/uploads'
 
+# Munger ready directory on the server.
+READY_DIR = '/var/tmp/ready'
+
 # Define the location of the Munger configuration file.
 MUNGER_CONF_FILE = 'baip_munger_ui/tests/files/baip-munger.xml'
 
 # Munger is ready for processing.
-MUNGER_CONF = None
+MUNGER_ACTIONS = None

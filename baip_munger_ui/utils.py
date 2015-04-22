@@ -2,7 +2,7 @@ import os
 
 from logga.log import log
 
-__all__ = 'allowed_file'
+__all__ = ['allowed_file']
 
 
 def allowed_file(filename, extensions):
