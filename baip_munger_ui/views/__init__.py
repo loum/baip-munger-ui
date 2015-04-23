@@ -38,11 +38,13 @@ def upload(path='.'):
     """Munger upload.
 
     """
+    extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
+    extensions_formatted = ', '.join(['*.%s' % ext for ext in extensions])
     kwargs = {
         'path': path,
         'template': 'dashboard/upload.html',
         'template_context': {
-            'extensions': '*.html, *htm',
+            'extensions': extensions_formatted,
         },
         'endpoint': '.upload'
     }
@@ -56,11 +58,12 @@ def munge(path='.'):
     """Munger munge.
 
     """
+    enabled = baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None,
     kwargs = {
         'path': path,
         'template': 'dashboard/munge.html',
         'template_context': {
-            'enabled': baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None,
+            'enabled': enabled,
         },
         'endpoint': '.munge',
     }
