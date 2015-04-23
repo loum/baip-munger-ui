@@ -2,20 +2,37 @@
 {% set title = 'Upload files' %}
 {% set active_page = "upload" %}
     {% block custom_head_js %}
-    <script type='text/javascript'>
+    <script type="text/javascript">
     //<![CDATA[
-        $(window).load(function(){
-            $(document).ready(function(){
-                $('input:file').change(function(){
-                    if ($("#file_to_upload").val()){
-                        $('input:submit').removeAttr('disabled');
+    $(window).load(function(){
+        $(document).ready(function(){
+            $('input:file').change(function(){
+                $.getJSON('/munger/_extensions', {
+                    file_to_upload: $('input:file').val()
+                }, function(data) {
+                    if (data.extension_ok) {
+                        $('input:file').parent().attr('class',
+                                                      'has-success');
+
+                        $('#supported_ext').css("color", "green")
+
+                        if ($("#file_to_upload").val()){
+                            $('input:submit').removeAttr('disabled');
+                        }
+                        else {
+                            $('input:submit').attr('disabled', true);
+                        }
                     }
                     else {
-                        $('input:submit').attr('disabled',true);
+                        $('#supported_ext').css("color", "red")
+                        $('input:file').parent().attr('class',
+                                                      'has-error');
+
                     }
                 });
             });
         });
+    });
     //]]>
     </script>
     {% endblock custom_head_js %}
@@ -37,18 +54,21 @@
               <form action="/munger/upload_file"
                     method="post"
                     enctype="multipart/form-data">
-                <span style="font-size:x-small;
+                <span id="supported_ext"
+                      style="font-size:x-small;
                              font-weight:bold;
                              font-style:italic">
                   Supported extensions: {{ extensions }}
                 </span>
-                <input name="file"
-                       id="file_to_upload""
-                       type="file"
-                       accept="{{ accept }}"
-                       class="filestyle"
-                       data-buttonBefore="true"
-                       data-buttonText="Find file">
+                <div>
+                  <input name="file"
+                         id="file_to_upload""
+                         type="file"
+                         accept="{{ accept }}"
+                         class="filestyle"
+                         data-buttonBefore="true"
+                         data-buttonText="Find file">
+                </div>
                 <div style="float:left;
                      padding-top:10px">
                     <input type="submit"

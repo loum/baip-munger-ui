@@ -128,3 +128,15 @@ def download(path='.'):
     }
 
     return baip_munger_ui.ready_index.render_autoindex(**kwargs)
+
+
+@baip_munger_ui.app.route('/munger/_extensions')
+def _extensions():
+    file_to_upload = flask.request.args.get('file_to_upload')
+
+    ext_status = False
+    extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
+    if allowed_file(file_to_upload, extensions):
+        ext_status = True
+
+    return flask.jsonify(extension_ok=ext_status)

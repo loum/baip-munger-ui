@@ -42,7 +42,26 @@
           {%- block pending_munge %}{% endblock pending_munge -%}
 
           {% block munged_files %}
-          {{ super() }}
-          {% endblock munged_files -%}
+          <h4 class="sub-header">Munged</h4>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+              {{ thead() }}
+              {% if not curdir.is_root() %}
+                <tr>
+                  <td class="breadcrumb" colspan="4">
+                    <h1>{{ breadcrumb(curdir) }}</h1>
+                  </td>
+                </tr>
+              {% endif %}
+              </thead>
+              <tbody>
+              {% for ent in entries %}
+                {{ entry(ent) }}
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endblock munged_files %}
         </div>
         {% endblock content %}

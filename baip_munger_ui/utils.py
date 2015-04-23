@@ -23,7 +23,8 @@ def allowed_file(filename, extensions):
 
     extension = os.path.splitext(filename)[1].strip('.')
 
-    log.debug('extensions: %s/%s' % (extension, extensions))
+    log.debug('File name|valid extensions: "%s"|%s' %
+              (filename, extensions))
     if extension in extensions:
         is_file_allowed = True
 

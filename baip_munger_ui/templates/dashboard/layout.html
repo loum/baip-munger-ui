@@ -72,13 +72,15 @@
                    style="width:50px;height:50px">
             </div>
             <div class="col-md-2 product">
-              {% block download_step %}
-              <img src="/static/images/document-arrow-down-icon.png"
-                   style="width:80px;height:80px"
-                   class="img-responsive"
-                   alt="Download files">
-              <span class="text-muted">Download files</span>
-              {% endblock download_step %}
+              <a href="/munger/download">
+                {% block download_step %}
+                <img src="/static/images/document-arrow-down-icon.png"
+                     style="width:80px;height:80px"
+                     class="img-responsive"
+                     alt="Download files">
+                <span class="text-muted">Download files</span>
+                {% endblock download_step %}
+              </a>
             </div>
           </div>
           {% endblock steps %}
