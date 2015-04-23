@@ -54,12 +54,14 @@
               <form action="/munger/upload_file"
                     method="post"
                     enctype="multipart/form-data">
-                <span id="supported_ext"
-                      style="font-size:x-small;
-                             font-weight:bold;
-                             font-style:italic">
-                  Supported extensions: {{ extensions }}
-                </span>
+                <div class="text-left">
+                  <span id="supported_ext"
+                        style="font-size:x-small;
+                               font-weight:bold;
+                               font-style:italic">
+                    Supported extensions: {{ extensions }}
+                  </span>
+                </div>
                 <div>
                   <input name="file"
                          id="file_to_upload""
