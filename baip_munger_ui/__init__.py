@@ -24,4 +24,8 @@ staging_index = AutoIndex(app,
                           browse_root=app.config['STAGING_DIR'],
                           add_url_rules=False)
 
+ready_index = AutoIndex(app,
+                        browse_root=app.config['READY_DIR'],
+                        add_url_rules=False)
+
 from baip_munger_ui import views

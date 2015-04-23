@@ -1,6 +1,6 @@
 {% extends "dashboard/layout.html" %}
-{% set title = 'Munge' %}
-{% set active_page = "munge" %}
+{% set title = 'Download files' %}
+{% set active_page = "download" %}
         {% block content %}
         <div class="col-sm-9
                     col-sm-offset-3
@@ -8,7 +8,7 @@
                     col-md-offset-2
                     main">
           {% block steps %}
-          <h3 class="page-header">Munge</h3>
+          <h3 class="page-header">Download Files</h3>
 
           <div id="baip-row"
                class="row placeholders"
@@ -16,34 +16,33 @@
                       border-radius:5px;
                       padding-top:20px;
                       padding-bottom:20px">
-            <div class="col-md-3 baip-panel">
-              <form action="/munger/munge_files"
-                    method="post"
-                    enctype="multipart/form-data">
-                <div style="float: left">
-                    <input type="submit"
-                           id="munge"
-                           class="btn btn-default"
-                           value="Start Munge"
-                           {% if not enabled %}disabled{% endif %}>
-                </div>
-              </form>
+            <div class="col-md-3 product baip-panel">
+              {% block download_step %}
+              {{ super() }}
+              {% endblock download_step %}
             </div>
+
             <div class="col-md-1 baip-panel">
               <img src="/static/images/arrow-right.png"
                    alt="Arrow right"
                    style="width:50px;height:50px">
             </div>
-            <div class="col-md-3 product">
-              {% block download_step %}
-              {{ super() }}
-              {% endblock download_step %}
-            </div>
-          </div>
-          {% endblock steps %}
 
-          {% block pending_munge %}
+            <div class="col-md-3 product">
+              <a href="/munger/upload">
+                {% block upload_step %}
+                {{ super() }}
+                {% endblock upload_step %}
+              </a>
+            </div>
+
+          </div>
+
+          {% endblock steps %}
+          {%- block pending_munge %}{% endblock pending_munge -%}
+
+          {% block munged_files %}
           {{ super() }}
-          {% endblock pending_munge %}
+          {% endblock munged_files -%}
         </div>
         {% endblock content %}

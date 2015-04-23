@@ -38,9 +38,14 @@ def upload(path='.'):
     """Munger upload.
 
     """
-    kwargs = {'path': path,
-              'template': 'dashboard/upload.html',
-              'endpoint': '.upload'}
+    kwargs = {
+        'path': path,
+        'template': 'dashboard/upload.html',
+        'template_context': {
+            'extensions': '*.html, *htm',
+        },
+        'endpoint': '.upload'
+    }
 
     return baip_munger_ui.staging_index.render_autoindex(**kwargs)
 
@@ -103,3 +108,18 @@ def munge_files():
                      target_file)
 
     return flask.redirect(flask.url_for('munge'))
+
+
+@baip_munger_ui.app.route('/munger/download')
+@baip_munger_ui.app.route('/munger/download/<path:path>')
+def download(path='.'):
+    """Munger download.
+
+    """
+    kwargs = {
+        'path': path,
+        'template': 'dashboard/download.html',
+        'endpoint': '.download'
+    }
+
+    return baip_munger_ui.ready_index.render_autoindex(**kwargs)

@@ -27,11 +27,13 @@
                       padding-bottom:20px">
             <div class="col-md-2 product">
               <a href="/munger/upload">
+                {% block upload_step %}
                 <img src="/static/images/document-arrow-up-icon.png"
                      style="width:80px;height:80px"
                      class="img-responsive"
                      alt="Upload files">
                 <span class="text-muted">Upload files</span>
+                {% endblock upload_step %}
               </a>
             </div>
             <div class="col-md-1 product">
@@ -103,5 +105,28 @@
             </table>
           </div>
           {% endblock pending_munge %}
+
+          {% block munged_files %}
+          <h4 class="sub-header">Munged</h4>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+              {{ thead() }}
+              {% if not curdir.is_root() %}
+                <tr>
+                  <td class="breadcrumb" colspan="4">
+                    <h1>{{ breadcrumb(curdir) }}</h1>
+                  </td>
+                </tr>
+              {% endif %}
+              </thead>
+              <tbody>
+              {% for ent in entries %}
+                {{ entry(ent) }}
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endblock munged_files %}
         </div>
         {% endblock content %}

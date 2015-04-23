@@ -37,14 +37,19 @@
               <form action="/munger/upload_file"
                     method="post"
                     enctype="multipart/form-data">
+                <span style="font-size:x-small;
+                             font-weight:bold;
+                             font-style:italic">
+                  Supported extensions: {{ extensions }}
+                </span>
                 <input name="file"
                        id="file_to_upload""
                        type="file"
                        class="filestyle"
                        data-buttonBefore="true"
                        data-buttonText="Find file">
-                <br />
-                <div style="float: left">
+                <div style="float:left;
+                     padding-top:10px">
                     <input type="submit"
                            id="upload"
                            class="btn btn-default"
