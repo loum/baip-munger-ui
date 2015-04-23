@@ -40,11 +40,13 @@ def upload(path='.'):
     """
     extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
     extensions_formatted = ', '.join(['*.%s' % ext for ext in extensions])
+    accept_formatted = ','.join(['.%s' % ext for ext in extensions])
     kwargs = {
         'path': path,
         'template': 'dashboard/upload.html',
         'template_context': {
             'extensions': extensions_formatted,
+            'accept': accept_formatted,
         },
         'endpoint': '.upload'
     }
