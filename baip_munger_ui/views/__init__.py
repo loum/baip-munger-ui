@@ -8,7 +8,8 @@ import baip_munger_ui
 import baip_munger
 from baip_munger_ui.utils import allowed_file
 from logga.log import log
-from filer.files import get_directory_files_list
+from filer.files import (get_directory_files_list,
+                         remove_files)
 
 
 @baip_munger_ui.app.route('/munger/health')
@@ -60,7 +61,11 @@ def munge(path='.'):
     """Munger munge.
 
     """
-    enabled = baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None,
+    enabled = False
+    if (baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None and
+       get_directory_files_list(baip_munger_ui.app.config['STAGING_DIR'])):
+        enabled = True
+
     kwargs = {
         'path': path,
         'template': 'dashboard/munge.html',
@@ -108,9 +113,12 @@ def munge_files():
                                    os.path.basename(html_file))
 
         munger = baip_munger.Munger()
-        munger.munge(baip_munger_ui.app.config['MUNGER_ACTIONS'],
-                     html_file,
-                     target_file)
+        status = munger.munge(baip_munger_ui.app.config['MUNGER_ACTIONS'],
+                              html_file,
+                              target_file)
+
+        if status:
+            remove_files(html_file)
 
     return flask.redirect(flask.url_for('munge'))
 
@@ -147,10 +155,6 @@ def _extensions():
 
 @baip_munger_ui.app.route('/munger/download_file/<filename>')
 def download_file(filename):
-    headers = {
-        'Content-Disposition': 'attachment; filename=%s' % filename
-    }
-
     download_path = os.path.join(baip_munger_ui.app.config['READY_DIR'],
                                  filename)
     log.info('Attempting file download: "%s"' % download_path)
