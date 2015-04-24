@@ -1,0 +1,35 @@
+{% extends '__autoindex__/macros.html' %}
+
+{% macro myentry(ent) %}
+  <tr>
+    {% set icon = ent.guess_icon() %}
+    <td class="icon">
+      {% if icon %}
+        <img src="{{ icon }}" />
+      {% endif %}
+    </td>
+    <td class="name">
+      <a href="{{ url_for(endpoint, path=ent.path) }}">
+      {%- if ent.name == ".." -%}
+        Parent folder
+      {%- else -%}
+        {{ ent.name }}
+      {%- endif -%}
+    </a></td>
+    <td class="modified">
+      <time datetime="{{ ent.modified }}">{{ ent.modified }}</time>
+    </td>
+    <td class="size">
+      {% if ent.size %}
+        {{ ent.size|filesizeformat }}
+      {% else %}
+        -
+      {% endif %}
+    </td>
+    {% if download_icon %}
+    <td class="icon">
+        <img src="{{ download_icon }}" />
+    </td>
+    {% endif %}
+  </tr>
+{% endmacro %}

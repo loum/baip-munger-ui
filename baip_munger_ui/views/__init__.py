@@ -124,7 +124,10 @@ def download(path='.'):
     kwargs = {
         'path': path,
         'template': 'dashboard/download.html',
-        'endpoint': '.download'
+        'template_context': {
+            'download_icon': '/icons/page_white_put.png',
+        },
+        'endpoint': '.download',
     }
 
     return baip_munger_ui.ready_index.render_autoindex(**kwargs)

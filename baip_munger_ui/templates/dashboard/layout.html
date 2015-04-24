@@ -1,7 +1,6 @@
-{% from "__autoindex__/macros.html" import entry,
-                                           thead,
-                                           breadcrumb
-                                           with context -%}
+{% from "macros.html" import myentry,
+                             thead,
+                             breadcrumb with context -%}
 {% extends "layout.html" %}
 {% set title = '%s' % title if title else 'Dashboard' %}
 {% set active_page = '%s' % active_page if active_page else 'dashboard' %}
@@ -101,7 +100,7 @@
               </thead>
               <tbody>
               {% for ent in entries %}
-                {{ entry(ent) }}
+                {{ myentry(ent) }}
               {% endfor %}
               </tbody>
             </table>

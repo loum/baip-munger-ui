@@ -3,6 +3,7 @@
 """
 import flask
 from flask.ext.autoindex import AutoIndex
+from flask.ext.silk import Silk
 
 from logga.log import log
 import baip_munger
@@ -10,6 +11,7 @@ import baip_munger.exception
 
 
 app = flask.Flask(__name__)
+silk = Silk(app)
 app.config.from_object('config')
 
 # Load the Munger config.
