@@ -28,8 +28,25 @@
     </td>
     {% if download_icon %}
     <td class="icon">
-        <img src="{{ download_icon }}" />
+      <a style="margin-right:0px"
+         href="/munger/download_file/{{ ent.name }}">
+        <img style="display:block;
+                    margin-left:auto;
+                    margin-right:auto"
+             src="{{ download_icon }}" />
+      </a>
     </td>
+    {% endif %}
+  </tr>
+{% endmacro %}
+
+{% macro mythead() %}
+  <tr>
+    {{ th("name", "Name", 2) }}
+    {{ th("modified", "Last modified") }}
+    {{ th("size", "Size") }}
+    {% if download_icon %}
+      {{ th("download", "Download") }}
     {% endif %}
   </tr>
 {% endmacro %}

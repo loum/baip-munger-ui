@@ -143,3 +143,18 @@ def _extensions():
         ext_status = True
 
     return flask.jsonify(extension_ok=ext_status)
+
+
+@baip_munger_ui.app.route('/munger/download_file/<filename>')
+def download_file(filename):
+    headers = {
+        'Content-Disposition': 'attachment; filename=%s' % filename
+    }
+
+    download_path = os.path.join(baip_munger_ui.app.config['READY_DIR'],
+                                 filename)
+    log.info('Attempting file download: "%s"' % download_path)
+
+    return flask.send_from_directory(baip_munger_ui.app.config['READY_DIR'],
+                                     filename,
+                                     as_attachment=True)

@@ -1,5 +1,5 @@
 {% from "macros.html" import myentry,
-                             thead,
+                             mythead,
                              breadcrumb with context -%}
 {% extends "layout.html" %}
 {% set title = '%s' % title if title else 'Dashboard' %}
@@ -89,7 +89,7 @@
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
-              {{ thead() }}
+              {{ mythead() }}
               {% if not curdir.is_root() %}
                 <tr>
                   <td class="breadcrumb" colspan="4">
