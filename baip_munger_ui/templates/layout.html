@@ -61,25 +61,12 @@
           </button>
           <a class="navbar-brand" href="/munger/dashboard">BAIP Munger</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
       </div>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li>
-                <a href="#">OVERVIEW</span></a>
-            </li>
-          </ul>
           <ul class="nav nav-sidebar">
             {% for href, id, caption in navigation_bar -%}
             <li{% if id == active_page %} class="active"
