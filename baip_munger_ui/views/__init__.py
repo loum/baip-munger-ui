@@ -163,3 +163,13 @@ def download_file(filename):
     return flask.send_from_directory(baip_munger_ui.app.config['READY_DIR'],
                                      filename,
                                      as_attachment=True)
+
+
+@baip_munger_ui.app.route('/munger/delete_file/<filename>')
+def delete_file(filename):
+    delete_path = os.path.join(baip_munger_ui.app.config['READY_DIR'],
+                               filename)
+    log.info('Attempting file delete: "%s"' % delete_path)
+    remove_files(delete_path)
+
+    return flask.redirect(flask.url_for('download'))

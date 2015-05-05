@@ -1,76 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    WARNING!
-
-    Do not change the ordering of the Sections as they are used
-    by the test harness.  If you want to add Sections then append
-    them the end of the configuration.
--->
 <Doc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Section>
-        <sectionDescription>Delete attribute</sectionDescription>
-        <xpath>//table[@class='TableBAHeaderRow']/thead/tr/td/p</xpath>
-        <sectionDeleteAttribute>
-            <attributeName>class</attributeName>
-        </sectionDeleteAttribute>
-    </Section>
-    <Section>
-        <sectionDescription>Update attribute</sectionDescription>
-        <xpath>//table[@class='TableBAHeaderRow']/thead/tr/td/p[@class='TableHeading']</xpath>
-        <sectionUpdateAttribute>
-            <attributeName>class</attributeName>
-            <attributeValue>TableText</attributeValue>
-            <attributeOldValue>TableHeading</attributeOldValue>
-        </sectionUpdateAttribute>
-    </Section>
-    <Section>
-        <sectionDescription>Update attribute</sectionDescription>
-        <xpath>//table[@class='TableBAHeaderRow']/thead/tr/td/p[@class='TableHeading']</xpath>
-        <sectionAddAttribute>
-            <attributeName>style</attributeName>
-            <attributeValue>margin-bottom:1.0pt</attributeValue>
-        </sectionAddAttribute>
-    </Section>
-    <Section>
-        <sectionDescription>Update attribute</sectionDescription>
-        <xpath>//table[@class='TableBAHeaderRow']/thead/tr/td</xpath>
-        <sectionAddAttribute>
-            <attributeName>width</attributeName>
-            <attributeValue>68</attributeValue>
-        </sectionAddAttribute>
-        <sectionAddAttribute>
-            <attributeName>nowrap</attributeName>
-            <attributeValue></attributeValue>
-        </sectionAddAttribute>
-    </Section>
-    <Section>
-        <sectionDescription>Strip characters</sectionDescription>
-        <xpath>//p[@class='MsoListBullet']</xpath>
-        <sectionStripChars>
-            <stripChars>&#160;&#183; </stripChars>
-        </sectionStripChars>
-    </Section>
-    <Section>
         <sectionDescription>Replace tag</sectionDescription>
-        <xpath>//p[@class='MsoListBullet']</xpath>
+        <xpath>//p[contains(@class, 'MsoListNumber')]</xpath>
         <sectionReplaceTag>
             <newTag>li</newTag>
         </sectionReplaceTag>
     </Section>
     <Section>
-        <sectionDescription>Replace tag</sectionDescription>
-        <xpath>//div/li</xpath>
+        <sectionDescription>Insert an unordered list</sectionDescription>
+        <xpath>//li[contains(@class, 'MsoListNumber')]</xpath>
         <sectionInsertTag>
-            <newTag>ul</newTag>
+            <newTag>ol</newTag>
+        </sectionInsertTag>
+    </Section>
+    <Section>
+        <sectionDescription>Insert an unordered list</sectionDescription>
+        <xpath>//li[@class='MsoListNumber2']</xpath>
+        <sectionInsertTag>
+            <newTag>ol</newTag>
         </sectionInsertTag>
     </Section>
     <Section>
         <sectionDescription>Update attribute</sectionDescription>
-        <xpath>//p[@class='MsoBodyText']/span[@style='font-family:Symbol']</xpath>
-        <sectionUpdateAttribute>
-            <attributeName>class</attributeName>
-            <attributeValue>MsoListBullet</attributeValue>
-            <attributeOldValue>MsoBodyText</attributeOldValue>
-        </sectionUpdateAttribute>
+        <xpath>//ol/ol</xpath>
+        <sectionAddAttribute>
+            <attributeName>type</attributeName>
+            <attributeValue>a</attributeValue>
+        </sectionAddAttribute>
     </Section>
 </Doc>
