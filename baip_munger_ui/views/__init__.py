@@ -134,6 +134,7 @@ def download(path='.'):
         'template': 'dashboard/download.html',
         'template_context': {
             'download_icon': '/icons/page_white_put.png',
+            'delete_icon': '/icons/delete.png',
         },
         'endpoint': '.download',
     }

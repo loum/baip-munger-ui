@@ -37,6 +37,17 @@
       </a>
     </td>
     {% endif %}
+    {% if delete_icon %}
+    <td class="icon">
+      <a style="margin-right:0px"
+         href="#">
+        <img style="display:block;
+                    margin-left:auto;
+                    margin-right:auto"
+             src="{{ delete_icon }}" />
+      </a>
+    </td>
+    {% endif %}
   </tr>
 {% endmacro %}
 
@@ -47,6 +58,9 @@
     {{ th("size", "Size") }}
     {% if download_icon %}
       {{ th("download", "Download") }}
+    {% endif %}
+    {% if delete_icon %}
+      {{ th("delete", "Delete") }}
     {% endif %}
   </tr>
 {% endmacro %}
