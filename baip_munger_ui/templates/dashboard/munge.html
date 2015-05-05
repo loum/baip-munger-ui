@@ -1,6 +1,7 @@
 {% extends "dashboard/layout.html" %}
-{% set title = 'Munge' %}
+{% set title = "Munge" %}
 {% set active_page = "munge" %}
+{% set pending_munge_header = '%s' % 'Munging Complete' if status else 'Pending Munge' %}
         {% block content %}
         <div class="col-sm-9
                     col-sm-offset-3
@@ -17,7 +18,7 @@
                       padding-top:20px;
                       padding-bottom:20px">
             <div class="col-md-3 baip-panel">
-              <form action="/munger/munge_files"
+              <form action="/munger/munge"
                     method="post"
                     enctype="multipart/form-data">
                 <div style="float: left">
@@ -44,8 +45,12 @@
           </div>
           {% endblock steps %}
 
+          {% if not status %}
           {% block pending_munge %}
           {{ super() }}
           {% endblock pending_munge %}
+          {% else %}
+          <h4 class="sub-header">{{ pending_munge_header }}</h4>
+          {% endif %}
         </div>
         {% endblock content %}

@@ -3,6 +3,7 @@
                              breadcrumb with context -%}
 {% extends "layout.html" %}
 {% set title = '%s' % title if title else 'Dashboard' %}
+{% set pending_munge_header = '%s' % pending_munge_header if pending_munge_header else 'Pending Munge' %}
 {% set active_page = '%s' % active_page if active_page else 'dashboard' %}
     {% block custom_head_link -%}
     <link rel="stylesheet"
@@ -71,7 +72,7 @@
           {% endblock steps %}
 
           {% block pending_munge %}
-          <h4 class="sub-header">Pending Munge</h4>
+          <h4 class="sub-header">{{ pending_munge_header }}</h4>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>

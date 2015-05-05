@@ -55,12 +55,33 @@ def upload(path='.'):
     return baip_munger_ui.staging_index.render_autoindex(**kwargs)
 
 
-@baip_munger_ui.app.route('/munger/munge')
+@baip_munger_ui.app.route('/munger/munge', methods=['GET', 'POST'])
 @baip_munger_ui.app.route('/munger/munge/<path:path>')
 def munge(path='.'):
     """Munger munge.
 
     """
+    status = False
+
+    if flask.request.method == 'POST':
+        in_dir = baip_munger_ui.app.config['STAGING_DIR']
+        log.debug('Munging files: %s' % get_directory_files_list(in_dir))
+
+        ready_dir = baip_munger_ui.app.config['READY_DIR']
+        for html_file in get_directory_files_list(in_dir):
+            target_file = os.path.join(ready_dir,
+                                       os.path.basename(html_file))
+
+            munger = baip_munger.Munger()
+            status = munger.munge(baip_munger_ui.app.config['MUNGER_ACTIONS'],
+                                  html_file,
+                                  target_file)
+
+            if status:
+                remove_files(html_file)
+            else:
+                break
+
     enabled = False
     if (baip_munger_ui.app.config['MUNGER_ACTIONS'] is not None and
        get_directory_files_list(baip_munger_ui.app.config['STAGING_DIR'])):
@@ -71,6 +92,7 @@ def munge(path='.'):
         'template': 'dashboard/munge.html',
         'template_context': {
             'enabled': enabled,
+            'status': status,
         },
         'endpoint': '.munge',
     }
@@ -98,29 +120,6 @@ def upload_file():
                 log.info('%s uploaded to "%s"' % (log_msg, target))
 
     return flask.redirect(flask.url_for('upload'))
-
-
-@baip_munger_ui.app.route('/munger/munge_files', methods=['POST'])
-def munge_files():
-    """Munge files.
-
-    """
-    in_dir = baip_munger_ui.app.config['STAGING_DIR']
-    log.debug('Munging files: %s' % get_directory_files_list(in_dir))
-
-    for html_file in get_directory_files_list(in_dir):
-        target_file = os.path.join(baip_munger_ui.app.config['READY_DIR'],
-                                   os.path.basename(html_file))
-
-        munger = baip_munger.Munger()
-        status = munger.munge(baip_munger_ui.app.config['MUNGER_ACTIONS'],
-                              html_file,
-                              target_file)
-
-        if status:
-            remove_files(html_file)
-
-    return flask.redirect(flask.url_for('munge'))
 
 
 @baip_munger_ui.app.route('/munger/download')
