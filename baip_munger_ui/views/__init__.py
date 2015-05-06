@@ -3,6 +3,7 @@
 import flask
 import werkzeug
 import os
+import urlparse
 
 import baip_munger_ui
 import baip_munger
@@ -48,6 +49,8 @@ def upload(path='.'):
         'template_context': {
             'extensions': extensions_formatted,
             'accept': accept_formatted,
+            'download_icon': '/icons/page_white_put.png',
+            'delete_icon': '/icons/delete.png',
         },
         'endpoint': '.upload'
     }
@@ -166,9 +169,32 @@ def download_file(filename):
 
 @baip_munger_ui.app.route('/munger/delete_file/<filename>')
 def delete_file(filename):
-    delete_path = os.path.join(baip_munger_ui.app.config['READY_DIR'],
-                               filename)
+    """Delete a Munger staged or ready file from the server.
+
+    Uses the request referrer value to determine which page initiates
+    the request.  The deletion will occur within context of the referring
+    page.  For example, delete request on the Uploads page will remove
+    a file from the staging directory.
+
+    **Args:**
+        *filename*: name of the file to delete
+
+    """
+    referrer = flask.request.referrer
+    log.debug('File deletion referrer: "%s"' % referrer)
+
+    parsed_referrer_url = urlparse.urlparse(referrer)
+    log.debug('File deletion referrer path: "%s"' %
+              parsed_referrer_url.path)
+
+    delete_path = baip_munger_ui.app.config['UPLOAD_DIR']
+    route = 'upload'
+    if parsed_referrer_url.path == '/munger/download':
+        delete_path = baip_munger_ui.app.config['READY_DIR']
+        route = 'download'
+
+    delete_path = os.path.join(delete_path, filename)
     log.info('Attempting file delete: "%s"' % delete_path)
     remove_files(delete_path)
 
-    return flask.redirect(flask.url_for('download'))
+    return flask.redirect(flask.url_for(route))
