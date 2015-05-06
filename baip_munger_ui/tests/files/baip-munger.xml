@@ -2,6 +2,27 @@
 <Doc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Section>
         <sectionDescription>Replace tag</sectionDescription>
+        <xpath>//p[contains(@class, 'MsoListBullet')]</xpath>
+        <sectionReplaceTag>
+            <newTag>li</newTag>
+        </sectionReplaceTag>
+    </Section>
+    <Section>
+        <sectionDescription>Insert an unordered list</sectionDescription>
+        <xpath>//li[contains(@class, 'MsoListBullet')]</xpath>
+        <sectionInsertTag>
+            <newTag>ul</newTag>
+        </sectionInsertTag>
+    </Section>
+    <Section>
+        <sectionDescription>Insert an unordered list</sectionDescription>
+        <xpath>//ul/li[@class='MsoListBullet2']</xpath>
+        <sectionInsertTag>
+            <newTag>ul</newTag>
+        </sectionInsertTag>
+    </Section>
+    <Section>
+        <sectionDescription>Replace tag</sectionDescription>
         <xpath>//p[contains(@class, 'MsoListNumber')]</xpath>
         <sectionReplaceTag>
             <newTag>li</newTag>
