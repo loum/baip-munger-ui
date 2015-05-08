@@ -117,7 +117,7 @@ def upload_file():
             extensions = baip_munger_ui.app.config['ALLOWED_EXTENSIONS']
             if allowed_file(source_file, extensions):
                 filename = werkzeug.secure_filename(source_file)
-                target = os.path.join(baip_munger_ui.app.config['UPLOAD_DIR'],
+                target = os.path.join(baip_munger_ui.app.config['STAGING_DIR'],
                                       filename)
                 file_storage.save(target)
                 log.info('%s uploaded to "%s"' % (log_msg, target))
@@ -187,7 +187,7 @@ def delete_file(filename):
     log.debug('File deletion referrer path: "%s"' %
               parsed_referrer_url.path)
 
-    delete_path = baip_munger_ui.app.config['UPLOAD_DIR']
+    delete_path = baip_munger_ui.app.config['STAGING_DIR']
     route = 'upload'
     if parsed_referrer_url.path == '/munger/download':
         delete_path = baip_munger_ui.app.config['READY_DIR']
